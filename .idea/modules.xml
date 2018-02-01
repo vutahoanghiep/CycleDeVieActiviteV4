@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://C:\AndroidWorkspace\TD1-CycleVie\AndroidWorkspace.iml" filepath="C:\AndroidWorkspace\TD1-CycleVie\AndroidWorkspace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TD1-CycleVie.iml" filepath="$PROJECT_DIR$/TD1-CycleVie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tp2-calculimc/tp2-calculimc.iml" filepath="$PROJECT_DIR$/tp2-calculimc/tp2-calculimc.iml" />
+    </modules>
+  </component>
+</project>

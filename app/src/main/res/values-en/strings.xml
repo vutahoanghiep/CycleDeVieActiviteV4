@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Life cycle</string>
+    <string name="btnAct2">Active the 2nd activity</string>
+    <string name="title_home">Home</string>
+</resources>
