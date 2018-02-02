@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     /**
      * Exécuté chaque fois que l'utilisateur clique sur l'icône de l'application pour une première fois.
@@ -19,12 +19,13 @@ public class MainActivity extends AppCompatActivity{
      * La fonction onCreate() est suivie d'un onStart().
      */
 
-//    String CYCLEVIEPREFS = "cycle_vie_prefs";
+    String CYCLEVIEPREFS = "cycle_vie_prefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //
         Button btnQuitter = (Button) findViewById(R.id.btnQuitter);
         btnQuitter.setOnClickListener(btnQuitterOnClickListener);
         Button btnEnvoyer = (Button) findViewById(R.id.btnEnvoyer);
@@ -33,6 +34,35 @@ public class MainActivity extends AppCompatActivity{
         btnAct2.setOnClickListener(btnAct2OnClickListener);
         popUp("onCreate()");
     }
+
+
+//    définir les actions à exécuter quand on clique sur un bouton
+    //=================================================================
+    View.OnClickListener btnQuitterOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
+    };
+
+    View.OnClickListener btnEnvoyerOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            popUp("valeur saisie = " + getTxtValeur());
+        }
+    };
+
+    View.OnClickListener btnAct2OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // créer un intent
+            Intent intent = new Intent(v.getContext(), Main2Activity.class);
+            // ajout d'un tuple de référence: "valeur" - texte saisi dans l'activité 1
+            intent.putExtra("valeur", getTxtValeur());
+            // lancer l'intent quand on clique sur le bouton "Activer la seconde activite"
+            startActivity(intent);
+        }
+    };
 
     /**
      * =============================================================
@@ -56,9 +86,9 @@ public class MainActivity extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
         popUp("onStart()");
-//        solution avec SharedPreferences
-//        SharedPreferences settings = getSharedPreferences(CYCLEVIEPREFS, Context.MODE_PRIVATE);
-//        setTxTValeur(settings.getString("valeur", ""));
+//        créer une référence et récupérer la valeur du texte saisi
+        SharedPreferences settings = getSharedPreferences(CYCLEVIEPREFS, Context.MODE_PRIVATE);
+        setTxTValeur(settings.getString("valeur", ""));
     }
 
     /**
@@ -94,12 +124,11 @@ public class MainActivity extends AppCompatActivity{
             popUp("onPause, l'utilisateur n'a pas demandé la fermeture via un finish()");
         }
 
-//        solution avec SharedPreferences
-//        SharedPreferences settings = getSharedPreferences(CYCLEVIEPREFS, Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = settings.edit();
-//        editor.putString("valeur",getTxtValeur());
-//        editor.commit();
-
+//      création d'une préférence avec un tuple: clé "valeur" - texte saisi dans l'activité 1
+        SharedPreferences settings = getSharedPreferences(CYCLEVIEPREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("valeur", getTxtValeur());
+        editor.commit();
     }
 
     /**
@@ -132,30 +161,7 @@ public class MainActivity extends AppCompatActivity{
         popUp("onDestroy()");
     }
 
-    //=================================================================
-    View.OnClickListener btnQuitterOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            finish();
-        }
-    };
-
-    View.OnClickListener btnEnvoyerOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            popUp("valeur saisie = " + getTxtValeur());
-        }
-    };
-
-    View.OnClickListener btnAct2OnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), Main2Activity.class);
-            intent.putExtra("valeur",getTxtValeur());
-            startActivity(intent);
-        }
-    };
-
+//    récupérer le texte saisi
     public String getTxtValeur() {
         EditText zoneValeur = (EditText) findViewById(R.id.editTxtValeur);
         return zoneValeur.getText().toString();

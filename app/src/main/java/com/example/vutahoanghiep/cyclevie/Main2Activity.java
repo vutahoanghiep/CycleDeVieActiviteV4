@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 public class Main2Activity extends Activity {
 
+//    solution 1: transférer le texte saisi dans l'activité 1 à l'activité 2 par SharedPreferences
 //    String CYCLEVIEPREFS = "cycle_vie_prefs";
-
 //    SharedPreferences sharedPreferences;
 
     @Override
@@ -21,17 +21,19 @@ public class Main2Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         TextView tv = findViewById(R.id.textViewAct2);
-//        sharedPreferences = getSharedPreferences(CYCLEVIEPREFS, Context.MODE_PRIVATE);
-//        String valeur = sharedPreferences.getString("valeur", "Not found!");
+
+//      solution 1: récupérer le texte saisi dans l'activité 1 avec SharedPreferences
+//      sharedPreferences = getSharedPreferences(CYCLEVIEPREFS, Context.MODE_PRIVATE);
+//      String valeur = sharedPreferences.getString("valeur", "Not found!");
+
+//      solution 2: créer un intent et récupérer la valeur du texte saisi dans l'activité 1
         Intent intent = getIntent();
         String valeur = "";
         if (intent != null) {
             valeur = intent.getStringExtra("valeur");
         }
-
         tv.setText(valeur);
         popUp("onCreate()");
-
     }
 
     /**
@@ -56,8 +58,6 @@ public class Main2Activity extends Activity {
     protected void onStart() {
         super.onStart();
         popUp("onStart()");
-
-
     }
 
     /**
@@ -92,7 +92,6 @@ public class Main2Activity extends Activity {
         } else {
             popUp("onPause, l'utilisateur n'a pas demandé la fermeture via un finish()");
         }
-
     }
 
     /**
@@ -127,7 +126,7 @@ public class Main2Activity extends Activity {
     //=================================================================
 
     public void popUp(String message) {
-
+//        afficher les notifications pour l'activité 2 (même texte comme l'activité 1 + "2"
         Toast toast = Toast.makeText(this, message + " 2", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
